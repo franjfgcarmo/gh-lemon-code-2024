@@ -3,13 +3,17 @@ name: CI
 on:
   push:
     branches: [main]
-    paths: ["hangman-api/**"]
-    paths-ignore: ["**"]
-    
+    paths:
+      - "hangman-api/**"
+    paths-ignore:
+      - "**"
+
   pull_request:
     branches: [main]
-    paths: ["hangman-api/**"]
-    paths-ignore: ["**"]
+    paths:
+      - "hangman-api/**"
+    paths-ignore:
+      - "**"
 
 jobs:
   build-test:
