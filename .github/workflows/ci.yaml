@@ -8,16 +8,17 @@ on:
     branches: [main]
 
 jobs:
-  audit:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout code #optional
-      - name: Inspect machine
-        run: |
-          ls -al
-          whoami
-          pwd
-          node -v
-          dotnet --version
+      - name : Checkout code #optional
+        uses : actions/checkout@v4        
+      - name : build and test
+        working-directory: ./hangman-api
+        run : |
+          npm ci
+          npm run build --if-present
+          npm test
+
+        
