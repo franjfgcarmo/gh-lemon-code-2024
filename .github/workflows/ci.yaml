@@ -16,5 +16,6 @@ jobs:
         run: |
           ls -al
           whoami
-          pwd node -v
+          pwd
+          node -v
           dotnet --version
