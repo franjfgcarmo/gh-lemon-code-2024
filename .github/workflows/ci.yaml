@@ -49,4 +49,5 @@ jobs:
       - name : Checkout code 
         uses : actions/checkout@v4
       - name : integration tests
+        working-directory: ./hangman-api
         run: docker compose -f .\hangman-api\compose.integration.yml up --force-recreate --exit-code-from build-db-relationships
