@@ -35,4 +35,14 @@ jobs:
         working-directory: ./hangman-api
         run : |
           npm ci
-          npm test  
+          npm test
+  
+  audit:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+    steps:
+      - name : Audit
+        run : |
+          java --version
+          dotnet --version
+      
