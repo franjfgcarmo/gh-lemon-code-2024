@@ -11,10 +11,18 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [17, 18, 20]
+        os: [ubuntu-22.04, ubuntu-24.04]
 
     steps:
       - name : Checkout code #optional
-        uses : actions/checkout@v4        
+        uses : actions/checkout@v4    
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}    
       - name : build and test
         working-directory: ./hangman-api
         run : |
