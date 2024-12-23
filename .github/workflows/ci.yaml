@@ -42,3 +42,9 @@ jobs:
         run : | 
           npm ci
           npm test
+
+  test-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name : integration tests
+        run: docker compose -f .\hangman-api\compose.integration.yml up --force-recreate --exit-code-from build-db-relationships
