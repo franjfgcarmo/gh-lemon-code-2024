@@ -46,5 +46,7 @@ jobs:
   test-integration:
     runs-on: ubuntu-latest
     steps:
+      - name : Checkout code 
+        uses : actions/checkout@v4
       - name : integration tests
         run: docker compose -f .\hangman-api\compose.integration.yml up --force-recreate --exit-code-from build-db-relationships
