@@ -39,6 +39,7 @@ jobs:
   
   audit:
     runs-on: ubuntu-latest
+    if: ${{ always()}}
     needs: [build, test]
     steps:
       - name : Audit
