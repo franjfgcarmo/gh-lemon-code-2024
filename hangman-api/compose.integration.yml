@@ -1,0 +1,39 @@
+networks:
+  integration-tests:
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hangman_db
+    networks:
+      - integration-tests
+
+  build-db-relationships:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrations
+    environment:
+      DATABASE_PORT: 5432
+      DATABASE_HOST: postgres
+      DATABASE_NAME: hangman_db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_POOL_MIN: 2
+      DATABASE_POOL_MAX: 10
+    depends_on:
+      - postgres
+    command: [
+      "./wait-for-it.sh",
+      "postgres:5432",
+      "--strict",
+      "--timeout=300",
+      "--",
+      "./node_modules/knex/bin/cli.js",
+      "migrate:latest",
+    ]
+    networks:
+      - integration-tests
