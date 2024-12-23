@@ -27,7 +27,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    #needs: build
+    needs: build
     steps: 
       - name : Checkout code #optional
         uses : actions/checkout@v4
@@ -39,8 +39,7 @@ jobs:
   
   audit:
     runs-on: ubuntu-latest
-    if: ${{ always()}}
-    needs: [build, test]
+    needs: test
     steps:
       - name : Audit
         run : |
