@@ -14,11 +14,13 @@ jobs:
 
     steps:
       - name : Checkout code #optional
-        uses : actions/checkout@v4    
-#      - name : setup node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 20
+        uses : actions/checkout@v4   
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: ./hangman-api/package-lock.json
       - name : build
         working-directory: ./hangman-api
         run : |
@@ -31,18 +33,12 @@ jobs:
     steps: 
       - name : Checkout code #optional
         uses : actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
       - name : build
         working-directory: ./hangman-api
-        run : |
+        run : | 
           npm ci
           npm test
-  
-  audit:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name : Audit
-        run : |
-          java --version
-          dotnet --version
-      
