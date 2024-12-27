@@ -1,2 +1,2 @@
 # Hangman API
-5
+6

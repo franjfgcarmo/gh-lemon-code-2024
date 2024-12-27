@@ -42,3 +42,41 @@ jobs:
         run : | 
           npm ci
           npm test
+
+  integration-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hangman_db
+        ports:
+          - 5432:5432
+        options: |
+          --health-cmd pg_isready 
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name : Checkout code 
+        uses : actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - name: Test
+        working-directory: ./hangman-api
+        env:
+          DATABASE_PORT: 5432
+          DATABASE_HOST: localhost
+          DATABASE_NAME: hangman_db
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_POOL_MIN: 2
+          DATABASE_POOL_MAX: 10
+        run: |
+          npm ci
+          npx knex migrate:latest --env development
+          npm run test:integration
