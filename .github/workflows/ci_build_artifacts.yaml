@@ -1,6 +1,9 @@
 name: CI - build artifacts
 
 on:
+  push:
+    branches:
+      - feat/*
   workflow_dispatch:
 
 jobs:

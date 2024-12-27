@@ -1,6 +1,9 @@
 name: Compare upload-artifact and download-artifact execution tims
 
 on:
+  push:
+    branches:
+      - feat/*
   workflow_dispatch:
 
 jobs:
