@@ -2,7 +2,7 @@
 # -- app
 #------------------------------------------------------------------------------
 ARG version=lts-alpine
-    FROM node:${version} as app
+FROM node:${version} as app
 
 WORKDIR /app
 COPY dist/ .
