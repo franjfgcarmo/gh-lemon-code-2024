@@ -44,14 +44,28 @@ jobs:
         with:
           name: build-code
           path: hangman-api/dist/
+      - name: docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Setup Docker builder
+        uses: docker/setup-buildx-action@v3
       - name: Build and push Docker image
-        working-directory: ./hangman-api
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REPOSITORY: hangman-api-2024
-        run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          image=$DOCKER_REPOSITORY:$(date +%s)
-          docker build -t $image -f Dockerfile.workflow .
-          docker push $image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./hangman-api
+          file: ./hangman-api/Dockerfile.workflow
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/hangman-api-actions-2024:latest
+      #- name: Build and push Docker image
+      #  working-directory: ./hangman-api
+      #  env:
+      #    DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      #    DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      #    DOCKER_REPOSITORY: hangman-api-2024
+      #  run: |
+      #    echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      #    image=$DOCKER_REPOSITORY:$(date +%s)
+      #    docker build -t $image -f Dockerfile.workflow .
+      #    docker push $image
