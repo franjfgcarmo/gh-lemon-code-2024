@@ -66,6 +66,6 @@ jobs:
           DOCKER_REPOSITORY: hangman-api-2024
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          image=$DOCKER_REPOSITORY:$(date +%s)
+          image=$DOCKER_USERNAME/$DOCKER_REPOSITORY:$(date +%s)
           docker build -t $image -f Dockerfile.workflow .
           docker push $image
