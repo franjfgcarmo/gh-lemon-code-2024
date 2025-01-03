@@ -1,0 +1,42 @@
+name: Reusable Node.js Build
+
+on:
+    workflow_call:
+        inputs:
+            node-version:
+                description: 'Node.js version to use'
+                required: true
+                type: number
+                default: 16
+            working-directory:
+                description: 'Build directory'
+                required: true
+                type: string
+            artifact-name:
+                description: 'Artifact name'
+                required: true
+                type: string
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name : Checkout code #optional
+            uses : actions/checkout@v4   
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: ${{ inputs.node-version }}
+              cache: 'npm'
+              cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+          - name : build
+            working-directory: ${{ inputs.working-directory }}
+            run : |
+              npm ci
+              npm run build --if-present
+          - name: Upload artifact (dist folder)
+            uses: actions/upload-artifact@v4
+            with:
+              name: ${{ inputs.artifact-name }}
+              path: ${{ inputs.working-directory }}/dist/
