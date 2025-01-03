@@ -9,16 +9,16 @@ jobs:
 
     steps:
       - name: Test Get Commodity Price Action
-        uses: franjfgcarmo/get-commodity-price-action
+        uses: franjfgcarmo/get-commodity-price-action@v1.0.0
         with:
           commodity: 'silver'
       - name: Test Get Commodity Price Action
-        uses: franjfgcarmo/get-commodity-price-action
+        uses: franjfgcarmo/get-commodity-price-action@v1.0.0
         with:
           commodity: 'gold'
           currency: 'USD'
       - name: Test Get Commodity Price Action
-        uses: franjfgcarmo/get-commodity-price-action
+        uses: franjfgcarmo/get-commodity-price-action@v1.0.0
         with:
           commodity: 'silver'
           currency: 'EUR'
