@@ -1,0 +1,24 @@
+name: Test get coomodity price action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Get Commodity Price Action
+        uses: franjfgcarmo/get-commodity-price-action
+        with:
+          commodity: 'silver'
+      - name: Test Get Commodity Price Action
+        uses: franjfgcarmo/get-commodity-price-action
+        with:
+          commodity: 'gold'
+          currency: 'USD'
+      - name: Test Get Commodity Price Action
+        uses: franjfgcarmo/get-commodity-price-action
+        with:
+          commodity: 'silver'
+          currency: 'EUR'
