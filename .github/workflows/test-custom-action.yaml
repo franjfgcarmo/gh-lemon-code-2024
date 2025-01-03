@@ -6,19 +6,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        commodity: ['gold', 'silver', 'platinum']
+        currency: ['USD', 'EUR', 'GBP']
 
     steps:
-      - name: Test Get Commodity Price Action
+      - name: Test Get Commodity Price Action with silver
         uses: franjfgcarmo/get-commodity-price-action@v1.0.0
         with:
-          commodity: 'silver'
-      - name: Test Get Commodity Price Action
-        uses: franjfgcarmo/get-commodity-price-action@v1.0.0
-        with:
-          commodity: 'gold'
-          currency: 'USD'
-      - name: Test Get Commodity Price Action
-        uses: franjfgcarmo/get-commodity-price-action@v1.0.0
-        with:
-          commodity: 'silver'
-          currency: 'EUR'
+          commodity: ${{ matrix.commodity }}
+          currency: ${{ matrix.currency }}
