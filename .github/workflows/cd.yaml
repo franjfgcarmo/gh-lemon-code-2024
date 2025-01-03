@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    uses: ./github/workflows/reusable-node-build.yaml
+    uses: ./.github/workflows/reusable-node-build.yaml
     with:
       node-version: 16
       working-directory: ./hangman-api
