@@ -1,0 +1,28 @@
+name: hangman-front-cd
+on:
+  workflow_call:
+
+jobs:
+  delivery-front:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 16
+      # - name: Deploy
+      #   working-directory: ./hangman-front
+      #   run: |
+      #     npm ci
+      #     npm run build --if-present
+      - name: Setup Docker builder
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./hangman-front
+          file: ./hangman-front/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository }}/hangman-front:${{ github.sha }}
