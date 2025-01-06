@@ -1,6 +1,6 @@
 name: hangman-front-cd
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   delivery-front:
