@@ -16,13 +16,15 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Docker builder
         uses: docker/setup-buildx-action@v3
-      - name: Get short SHA
-        id: short_sha
-        run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: ./hangman-front
           file: ./hangman-front/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/hangman-front:${{ steps.short_sha.outputs.SHORT_SHA }}
+          tags: ghcr.io/${{ github.repository }}/hangman-front:${{ steps.vars.outputs.sha_short }}
