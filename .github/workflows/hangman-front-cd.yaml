@@ -16,11 +16,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Docker builder
         uses: docker/setup-buildx-action@v3
-      - name: Set outputs
+      - name: Get Sha short
         id: vars
         run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
