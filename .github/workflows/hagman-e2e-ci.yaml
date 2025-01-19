@@ -22,5 +22,4 @@ jobs:
             cd ./hangman-api &&  npm install && npm run start
             cd ./hangman-front &&  npm install && npm run start
           wait-on: |
-            'http://localhost:3000'
             'http://localhost:8080'
