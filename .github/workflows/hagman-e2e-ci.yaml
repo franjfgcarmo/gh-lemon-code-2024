@@ -1,0 +1,19 @@
+name: hagman-e2e-ci
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths: ["hangman-e2e/**"]
+
+jobs:
+  test-e2e:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          project: ./hangman-e2e/e2e
+    
