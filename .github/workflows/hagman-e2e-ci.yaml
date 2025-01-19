@@ -19,8 +19,8 @@ jobs:
           install: false
           install-command: cd ./hangman-e2e/e2e && npm install
           start: |
-            cd ./hangman-api && npm run start
-            cd ./hangman-front && npm run start
+            cd ./hangman-api &&  npm install && npm run start
+            cd ./hangman-front &&  npm install && npm run start
           wait-on: |
-            'http://localhost:3001'
+            'http://localhost:3000'
             'http://localhost:8080'
