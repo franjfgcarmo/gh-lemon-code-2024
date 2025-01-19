@@ -36,7 +36,11 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-         # component: true
-          working-directory: ./hangman-e2e/e2e
-          #wait-on: |
-          #  'http://localhost:8080'
+          working-directory: ./hangman-e2e/e2e   
+          record: true
+          
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore          
