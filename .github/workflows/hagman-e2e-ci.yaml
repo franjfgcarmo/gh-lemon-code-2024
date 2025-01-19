@@ -15,5 +15,5 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
-          project: ./hangman-e2e
+          project: ./hangman-e2e/e2e
     
