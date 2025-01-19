@@ -21,25 +21,26 @@ jobs:
             ./hangman-api/package-lock.json
             ./hangman-front/package-lock.json
 
-      - name : start hangman-api
+      - name : Start hangman-api
         working-directory: ./hangman-api
         run : |
           npm ci
           npm run start &
 
-      - name : start hangman-front
+      - name : Start hangman-front
         working-directory: ./hangman-front
         run : |
           npm ci
           npm run start &
 
-      - name: Cypress run
+      - name: Test E2E
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./hangman-e2e/e2e   
-          record: true
-          
-      - uses: actions/upload-artifact@v4
+          #record: true
+
+      - name: Upload videos     
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
