@@ -19,7 +19,7 @@ jobs:
          # install-command: 
          #   cd ./hangman-e2e/e2e && npm install && npm run open
           start: |
-            cd ./hangman-api &&  npm install && npm run start
-            cd ./hangman-front &&  npm install && npm run start
+            cd ../../hangman-api &&  npm install && npm run start
+            cd ../../hangman-front &&  npm install && npm run start
           #wait-on: |
           #  'http://localhost:8080'
