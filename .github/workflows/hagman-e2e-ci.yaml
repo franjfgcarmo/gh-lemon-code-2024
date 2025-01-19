@@ -17,7 +17,8 @@ jobs:
           component: true
           project: ./hangman-e2e/e2e
           install: false
-          install-command: cd ./hangman-e2e/e2e && npm install
+          install-command: 
+            cd ./hangman-e2e/e2e && npm install && npm run open
           start: |
             cd ./hangman-api &&  npm install && npm run start
             cd ./hangman-front &&  npm install && npm run start
