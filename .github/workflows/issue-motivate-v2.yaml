@@ -1,0 +1,12 @@
+name: Motivate on Label
+on:
+  issues:
+    types: 
+      - labeled
+
+jobs:
+  motivate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Motivational Message
+        uses: franjfgcarmo/gh-lemon-code-motivational-message@v2.0.0
