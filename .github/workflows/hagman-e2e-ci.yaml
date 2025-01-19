@@ -11,15 +11,32 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: |
+            ./hangman-api/package-lock.json
+            ./hangman-front/package-lock.json
+
+      - name : start hangman-api
+        working-directory: ./hangman-api
+        run : |
+          npm ci
+          npm run start &
+
+      - name : start hangman-front
+        working-directory: ./hangman-front
+        run : |
+          npm ci
+          npm run start &
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           component: true
           working-directory: ./hangman-e2e/e2e
-         # install-command: 
-         #   cd ./hangman-e2e/e2e && npm install && npm run open
-          start: |
-            cd ../../hangman-api && npm install && npm run start
-            cd ../../hangman-front && npm install && npm run start
-          #wait-on: |
-          #  'http://localhost:8080'
+          wait-on: |
+            'http://localhost:8080'
