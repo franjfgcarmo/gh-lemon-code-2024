@@ -16,4 +16,9 @@ jobs:
         with:
           component: true
           project: ./hangman-e2e/e2e
-    
+          start: |
+            cd ./hangman-api && npm run start
+            cd ./hangman-front && npm run start
+          wait-on: |
+            'http://localhost:3001'
+            'http://localhost:8080'
